@@ -13,7 +13,6 @@
                 <th>Annonce_description</th>
                 <th>Annonce_date</th>
                 <th>Annonce_date_modif</th>
-                <th>Annonce_date_delete</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -25,7 +24,6 @@
                 <td>{{ annonce.annonceDescription }}</td>
                 <td>{{ annonce.annonceDate ? annonce.annonceDate|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ annonce.annonceDateModif ? annonce.annonceDateModif|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ annonce.annonceDateDelete ? annonce.annonceDateDelete|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
                     <a href="{{ path('app_annonce_show', {'id': annonce.id}) }}">show</a>
                     <a href="{{ path('app_annonce_edit', {'id': annonce.id}) }}">edit</a>
@@ -39,5 +37,4 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_annonce_new') }}">Create new</a>
 {% endblock %}

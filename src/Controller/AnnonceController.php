@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Annonce;
 use App\Form\AnnonceType;
 use App\Repository\AnnonceRepository;
+use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -35,8 +36,11 @@ class AnnonceController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $annonce->setAnnonceDate(new DateTime());
             $annonceRepository->add($annonce);
-            return $this->redirectToRoute('app_annonce_index', [], Response::HTTP_SEE_OTHER);
+            $this->addFlash('success', 'Votre annonce a été envoyé');
+
+            return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('annonce/new.html.twig', [
@@ -65,7 +69,7 @@ class AnnonceController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $annonceRepository->add($annonce);
-            return $this->redirectToRoute('app_annonce_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('annonce/edit.html.twig', [
@@ -83,6 +87,6 @@ class AnnonceController extends AbstractController
             $annonceRepository->remove($annonce);
         }
 
-        return $this->redirectToRoute('app_annonce_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
     }
 }

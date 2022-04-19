@@ -2,11 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\AnnonceRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\AnnonceRepository;
+use Vich\UploaderBundle\Entity\File as EmbeddedFile;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=AnnonceRepository::class)
+ * @Vich\Uploadable
  */
 class Annonce
 {
@@ -23,7 +26,7 @@ class Annonce
     private $annonce_title;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="text")
      */
     private $annonce_description;
 
@@ -33,18 +36,25 @@ class Annonce
     private $annonce_date;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $annonce_date_modif;
+    /**
+     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="annonces")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $relation;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $annonce_date_delete;
 
-    /**
-     * @ORM\Column(type="string", length=255)
+    private $photoName;
+
+  /**
+     * @Vich\UploadableField(mapping="products", fileNameProperty="photo_name")
      */
+    private $photoFile;
 
     public function getId(): ?int
     {
@@ -99,16 +109,56 @@ class Annonce
         return $this;
     }
 
-    public function getAnnonceDateDelete(): ?\DateTimeInterface
+    public function getRelation(): ?Category
     {
-        return $this->annonce_date_delete;
+        return $this->relation;
     }
 
-    public function setAnnonceDateDelete(\DateTimeInterface $annonce_date_delete): self
+    public function setRelation(?Category $relation): self
     {
-        $this->annonce_date_delete = $annonce_date_delete;
+        $this->relation = $relation;
 
         return $this;
     }
 
+
+    /**
+     * Get the value of photoFile
+     */ 
+    public function getPhotoFile()
+    {
+        return $this->photoFile;
+    }
+
+    /**
+     * Set the value of photoFile
+     *
+     * @return  self
+     */ 
+    public function setPhotoFile($photoFile)
+    {
+        $this->photoFile = $photoFile;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of photoName
+     */ 
+    public function getPhotoName()
+    {
+        return $this->photoName;
+    }
+
+    /**
+     * Set the value of photoName
+     *
+     * @return  self
+     */ 
+    public function setPhotoName($photoName)
+    {
+        $this->photoName = $photoName;
+
+        return $this;
+    }
 }

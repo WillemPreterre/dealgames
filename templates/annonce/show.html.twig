@@ -23,18 +23,10 @@
                 <th>Annonce_date</th>
                 <td>{{ annonce.annonceDate ? annonce.annonceDate|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
-            <tr>
-                <th>Annonce_date_modif</th>
-                <td>{{ annonce.annonceDateModif ? annonce.annonceDateModif|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Annonce_date_delete</th>
-                <td>{{ annonce.annonceDateDelete ? annonce.annonceDateDelete|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('app_annonce_index') }}">back to list</a>
+    <a href="{{ path('app_home') }}">back to list</a>
 
     <a href="{{ path('app_annonce_edit', {'id': annonce.id}) }}">edit</a>
 

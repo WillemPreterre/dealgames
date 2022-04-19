@@ -6,13 +6,10 @@
 {% block body %}
 
 
-	<div
-		class="row">
-		{# total items count #}
-		{# <div class="count">
-			{{ annonces.getTotalItemCount }}
-		</div> #}
-		{# table body #}
+	<div class="row">
+
+			{% for flash in app.flashes('success') %}<div class="alert alert-success role="alert"> {{ flash }}</div>
+		{% endfor %}
 		{% for annonce in annonces %}
 
 			<div class="card col-4 col-md-4">

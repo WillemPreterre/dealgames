@@ -39,7 +39,6 @@ class AnnonceController extends AbstractController
             $annonce->setAnnonceDate(new DateTime());
             $annonceRepository->add($annonce);
             $this->addFlash('success', 'Votre annonce a été envoyé');
-
             return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
         }
 

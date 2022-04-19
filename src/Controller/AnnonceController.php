@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/annonce")
+ * @Route("/profile/annonce")
  */
 class AnnonceController extends AbstractController
 {

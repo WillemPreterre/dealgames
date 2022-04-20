@@ -37,6 +37,7 @@ class AnnonceController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $annonce->setAnnonceDate(new DateTime());
+            $annonce->setUser($this->getUser());
             $annonceRepository->add($annonce);
             $this->addFlash('success', 'Votre annonce a été envoyé');
             return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
@@ -63,6 +64,7 @@ class AnnonceController extends AbstractController
      */
     public function edit(Request $request, Annonce $annonce, AnnonceRepository $annonceRepository): Response
     {
+        $this->denyAccessUnlessGranted('annonce_edit', $annonce);
         $form = $this->createForm(AnnonceType::class, $annonce);
         $form->handleRequest($request);
 

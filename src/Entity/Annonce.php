@@ -57,7 +57,7 @@ class Annonce
     private $photoFile;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="user")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="annonce",cascade={"persist"})
      */
     private $user;
 

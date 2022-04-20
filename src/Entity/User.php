@@ -50,7 +50,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $prenom;
 
     /**
-     * @ORM\OneToMany(targetEntity=Annonce::class, mappedBy="annonce")
+     * @ORM\OneToMany(targetEntity=Annonce::class, mappedBy="user",cascade={"persist"})
      */
     private $annonce;
 
@@ -61,7 +61,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function __construct()
     {
-        $this->user = new ArrayCollection();
+        $this->annonce = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -180,27 +180,27 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @return Collection<int, Annonce>
      */
-    public function getUser(): Collection
+    public function getAnnonce(): Collection
     {
         return $this->annonce;
     }
 
-    public function addUser(Annonce $user): self
+    public function addAnnonce(Annonce $annonce): self
     {
-        if (!$this->annonce->contains($user)) {
-            $this->annonce[] = $user;
-            $user->setUser($this);
+        if (!$this->annonce->contains($annonce)) {
+            $this->annonce[] = $annonce;
+            $annonce->setUser($this);
         }
 
         return $this;
     }
 
-    public function removeUser(Annonce $user): self
+    public function removeAnnonce(Annonce $annonce): self
     {
-        if ($this->user->removeElement($user)) {
+        if ($this->annonce->removeElement($annonce)) {
             // set the owning side to null (unless already changed)
-            if ($user->getUser() === $this) {
-                $user->setUser(null);
+            if ($annonce->getUser() === $this) {
+                $annonce->setUser(null);
             }
         }
 
@@ -218,4 +218,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+
 }

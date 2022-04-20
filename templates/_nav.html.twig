@@ -1,22 +1,20 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-	<a class="navbar-brand" href="{{path('app_home')}}">Dealgames</a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-black">
+	<a class="navbar-brand fs-1 text-secondary" href="{{path('app_home')}}"><span class="text-primary">Deal</span>games</a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
 		<span class="navbar-toggler-icon"></span>
 	</button>
-	<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-		<div class="navbar-nav">
+	<div class="collapse navbar-collapse d-md-flex justify-content-md-end " id="navbarNavAltMarkup">
+		<div class="navbar-nav fs-4">
 
 			{% if app.user == null %}
 				<a class="nav-item nav-link" href="{{path('app_login')}}">Connexion</a>
-				<a class="nav-item nav-link" href="{{path('app_register')}}">Register</a>
+				<a class="nav-item nav-link text-primary" href="{{path('app_register')}}">Register</a>
 			{% else %}
-				<a class="nav-item nav-link" href="{{path('app_home')}}">Home</a>
-				<a class="nav-item nav-link" href="{{path('app_myaccount')}}">Mon Compte</a>
-				<a class="nav-item nav-link" href="{{path('app_myannonce')}}">Mes annonces</a>
-				<a class="nav-item nav-link" href="{{path('app_logout')}}">Déconnexion</a>
-				<a class="nav-item nav-link" href="{{ path('app_annonce_new') }}">Nouvelle annonce</a>
+				<a class="nav-item nav-link text-primary" href="{{path('app_myaccount')}}">Mon Compte</a>
+				<a class="nav-item nav-link text-secondary" href="{{path('app_myannonce')}}">Mes annonces</a>
+				<a class="nav-item nav-link text-primary" href="{{ path('app_annonce_new') }}">Nouvelle annonce</a>
+				<a class="nav-item nav-link text-secondary" href="{{path('app_logout')}}">Déconnexion</a>
 			{% endif %}
-
 
 		</div>
 
@@ -24,10 +22,12 @@
 </nav>
 
 
-<div class="container">
-	<div class="d-flex justify-content-center ">
-		<a class="mx-4"href="#">pd</a>
-		<a class="mx-4"href="#">pd</a>
-		<a class="mx-4"href="#">pd</a>
+<div class="container nav-category">
+	<div class="row ">
+		<div class="d-flex justify-content-center bg-light border border-top-0 py-4 ">
+			<a class="fs-3 mx-4 text-dark" href="{{path('app_category', {category_name: 'jeux'})}}">Jeux</a>
+			<a class="fs-3 mx-4 text-dark" href="{{path('app_category', {category_name: 'accessoires'})}}">Accessoires</a>
+			<a class="fs-3 mx-4 text-dark" href="{{path('app_category', {category_name: 'consoles'})}}">Consoles</a>
+		</div>
 	</div>
 </div>

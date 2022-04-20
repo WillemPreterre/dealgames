@@ -1,11 +1,24 @@
-@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Nunito&display=swap');
+// font-family: 'Anton', sans-serif;
 
-$primary: #00FF33;
+// font-family: 'Nunito', sans-serif;
+
+$primary: #09E535;
 $secondary: #F700FF;
 
+nav {
+    font-family: 'Anton';
+}
+.nav-category {
+    font-family: 'Anton';
+}
 
 
-$font-family-sans-serif:   'Anton',   system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+$font-family-sans-serif:   'Nunito',   system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 
 @import "~bootstrap/scss/bootstrap";
 
+.img-cover {
+    object-fit: cover;
+}

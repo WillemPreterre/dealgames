@@ -2,30 +2,41 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\User;
 use App\Entity\Annonce;
 use App\Entity\Category;
 use App\Repository\AnnonceRepository;
 use App\Repository\CategoryRepository;
-use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Doctrine\Bundle\FixturesBundle\Fixture;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
 {
 
     private $annonceRepo;
     private $categoryRepo;
+    private $hashPassword;
 
-    public function __construct(AnnonceRepository $annonceRepository,CategoryRepository $categoryRepository)
+    public function __construct(AnnonceRepository $annonceRepository,CategoryRepository $categoryRepository, UserPasswordHasherInterface $userPasswordHasher)
     {
         $this->annonceRepo = $annonceRepository;
         $this->categoryRepo = $categoryRepository;
+        $this->hashPassword = $userPasswordHasher;
 
     }
 
     public function load(ObjectManager $manager): void
     {
 
-
+        $user = new User();
+        $user->setEmail('willem.preterre@gmail.com')
+        ->setNom('préterre')
+        ->setPrenom('willem')
+        ->setIsVerified(true)
+        ->setRoles(['ROLE_ADMIN'])
+        ->setPassword($this->hashPassword->hashPassword($user, 'pommeret'));
+                
         $annonces = [
             "Elden Ring" => [
                 'annonce_title' => 'Elden Ring',
@@ -33,8 +44,8 @@ class AppFixtures extends Fixture
                 'annonce_date' => new \DateTime("2021-02-05"),
                 'annonce_date_modif' => new \DateTime("2021-02-05"),
                 'category' => 'jeux',
-                'photo_name' => 'Elden-ring.jpg'
-
+                'photo_name' => 'Elden-ring.jpg',
+                'user' => $user
             ],
             "LEGO Star Wars: The Skywalker Saga " => [
                 'annonce_title' => 'LEGO Star Wars: The Skywalker Saga ',
@@ -42,7 +53,8 @@ class AppFixtures extends Fixture
                 'annonce_date' => new \DateTime("2022-03-12"),
                 'annonce_date_modif' => new \DateTime("2022-03-12"),
                 'category' => 'jeux',
-                'photo_name' => 'lego-starwars.jpg'
+                'photo_name' => 'lego-starwars.jpg',
+                'user' => $user
             ],
             "Planet Zoo: Wetlands Animal Pack" => [
                 'annonce_title' => 'Planet Zoo: Wetlands Animal Pack ',
@@ -50,8 +62,8 @@ class AppFixtures extends Fixture
                 'annonce_date' => new \DateTime("2022-01-23"),
                 'annonce_date_modif' => new \DateTime("2022-01-23"),
                 'category' => 'jeux',
-                'photo_name' => 'planet-Zoo.jpg'
-
+                'photo_name' => 'planet-Zoo.jpg',
+                'user' => $user
             ],
             "Tiny Tina's Wonderlands: Chaotic Great Edition (Europe)" => [
                 'annonce_title' => 'Tiny Tina\'s Wonderlands: Chaotic Great Edition (Europe) ',
@@ -59,8 +71,8 @@ class AppFixtures extends Fixture
                 'annonce_date' => new \DateTime("2022-03-25"),
                 'annonce_date_modif' => new \DateTime("2022-03-25"),
                 'category' => 'jeux',
-                'photo_name' => 'Tiny-Tina.jpg'
-
+                'photo_name' => 'Tiny-Tina.jpg',
+                'user' => $user
             ],
             "Core Keeper" => [
                 'annonce_title' => 'Core Keeper',
@@ -68,8 +80,8 @@ class AppFixtures extends Fixture
                 'annonce_date' => new \DateTime("2017-06-18"),
                 'annonce_date_modif' => new \DateTime("2017-06-18"),
                 'category' => 'jeux',
-                'photo_name' => 'Core-Keeper.jpg'
-
+                'photo_name' => 'Core-Keeper.jpg',
+                'user' => $user
             ],
             "Godfall Ultimate Edition" => [
                 'annonce_title' => 'Godfall Ultimate Edition',
@@ -77,8 +89,8 @@ class AppFixtures extends Fixture
                 'annonce_date' => new \DateTime("2019-07-23"),
                 'annonce_date_modif' => new \DateTime("2019-07-23"),
                 'category' => 'jeux',
-                'photo_name' => 'godfall.jpg'
-
+                'photo_name' => 'godfall.jpg',
+                'user' => $user
             ],
             "Risk of Rain 2: Survivors of the Void" => [
                 'annonce_title' => 'Risk of Rain 2: Survivors of the Void',
@@ -86,8 +98,8 @@ class AppFixtures extends Fixture
                 'annonce_date' => new \DateTime("2020-05-07"),
                 'annonce_date_modif' => new \DateTime("2020-05-07"),
                 'category' => 'jeux',
-                'photo_name' => 'ROR2.jpg'
-
+                'photo_name' => 'ROR2.jpg',
+                'user' => $user
             ],
             "Sony PlayStation 5 Édition Standard" => [
                 'annonce_title' => 'Sony PlayStation 5 Édition Standard',
@@ -95,8 +107,8 @@ class AppFixtures extends Fixture
                 'annonce_date' => new \DateTime("2018-03-06"),
                 'annonce_date_modif' => new \DateTime("2018-03-06"),
                 'category' => 'consoles',
-                'photo_name' => 'PS5.jpg'
-
+                'photo_name' => 'PS5.jpg',
+                'user' => $user
             ],
             " Xbox Series X " => [
                 'annonce_title' => ' Xbox Series X ',
@@ -104,8 +116,8 @@ class AppFixtures extends Fixture
                 'annonce_date' => new \DateTime("2015-07-14"),
                 'annonce_date_modif' => new \DateTime("2015-07-14"),
                 'category' => 'consoles',
-                'photo_name' => 'XBOX-X.jpg'
-
+                'photo_name' => 'XBOX-X.jpg',
+                'user' => $user
             ],
             " Console Nintendo Switch " => [
                 'annonce_title' => ' Console Nintendo Switch ',
@@ -114,8 +126,8 @@ class AppFixtures extends Fixture
                 'annonce_date' => new \DateTime("2019-09-01"),
                 'annonce_date_modif' => new \DateTime("2019-09-01"),
                 'category' => 'consoles',
-                'photo_name' => 'nintendo.jpg'
-
+                'photo_name' => 'nintendo.jpg',
+                'user' => $user
             ],
             " PDP Manette Filaire pour Xbox Series XIS Noir  " => [
                 'annonce_title' => 'PDP Manette Filaire pour Xbox Series XIS Noir  ',
@@ -123,8 +135,8 @@ class AppFixtures extends Fixture
                 'annonce_date' => new \DateTime("2019-09-01"),
                 'annonce_date_modif' => new \DateTime("2019-09-01"),
                 'category' => 'accessoires',
-                'photo_name' => 'manette-xbox.jpg'
-
+                'photo_name' => 'manette-xbox.jpg',
+                'user' => $user
             ],
             " Nintendo Paire de Manettes Joy-Con Gauche Violet Néon/Droite Orange Néon   " => [
                 'annonce_title' => 'Nintendo Paire de Manettes Joy-Con Gauche Violet Néon/Droite Orange Néon   ',
@@ -132,8 +144,8 @@ class AppFixtures extends Fixture
                 'annonce_date' => new \DateTime("2017-06-09"),
                 'annonce_date_modif' => new \DateTime("2017-06-09"),
                 'category' => 'accessoires',
-                'photo_name' => 'nintendo-manette.jpg'
-
+                'photo_name' => 'nintendo-manette.jpg',
+                'user' => $user
             ],
             " Casque de jeu filaire LucidSound LS10P pour Sony PlayStation   " => [
                 'annonce_title' => 'Casque de jeu filaire LucidSound LS10P pour Sony PlayStation',
@@ -142,7 +154,7 @@ class AppFixtures extends Fixture
                 'annonce_date_modif' => new \DateTime("2017-12-24"),
                 'category' => 'accessoires',
                 'photo_name' => 'LucidSound.jpg',
-                
+                'user' => $user
             ],
         ];
 
@@ -179,6 +191,7 @@ class AppFixtures extends Fixture
                 $a->setAnnonceDate($annonce['annonce_date']);
                 $a->setAnnonceDateModif($annonce['annonce_date_modif']);
                 $a->setPhotoName($annonce['photo_name']);
+                $a->setUser($annonce['user']);
     
             $categoryForAnnonce = $this->categoryRepo->findOneBy(['category_name'=>$annonce['category']]);
             $a->setRelation($categoryForAnnonce);   

@@ -4,33 +4,39 @@
 {% endblock %}
 
 {% block body %}
-        <pre>
+	{# <pre>
           {{ dump(app.user) }}
-        </pre>
+        </pre> #}
+	<div class="container">
+		<div class="row g-4">
 
-	<div class="row">
-
-			{% for flash in app.flashes('success') %}<div class="alert alert-success role="alert""> {{ flash }}</div>
-		{% endfor %}
-		{% for annonce in annonces %}
-		{# <pre>
-			{{ dump(annonce) }}
-		</pre> #}
-			<div class="card col-4 col-md-4">
-				<img class="card-img-top" src="{{vich_uploader_asset(annonce)}}" alt="{{annonce.annonceTitle}}">
-				<div class="card-body">
-
-					<h5 class="card-title text-center">{{annonce.annonceTitle}}</h5>
-					<p class="card-text">{{annonce.annonceDescription|length > 150 ? annonce.annonceDescription|slice(0, 150) ~ '...' : annonce.annonceDescription}}</p>
-					{# u.truncate twig filter #}
-					<a href="{{path('app_annonce_show', {'id':annonce.id})}}" class="btn btn-primary">Go somewhere</a>
+			{% for flash in app.flashes('success') %}
+				<div class="alert alert-success role=" alert"">
+					{{ flash }}</div>
+			{% endfor %}
+			{% for annonce in annonces %}
+				<div class="col-4 col-md-4 ">
+					<div class="card ">
+						<div class="ratio ratio-16x9 ">
+							<img class="card-img-top img-cover" src="{{vich_uploader_asset(annonce)}}" alt="{{annonce.annonceTitle}}">
+						</div>
+						<div class="card-body">
+							<h5 class="card-title text-center">{{annonce.annonceTitle}}</h5>
+							<p class="card-text">{{annonce.annonceDescription|length > 150 ? annonce.annonceDescription|slice(0, 150) ~ '...' : annonce.annonceDescription}}</p>
+							{# u.truncate twig filter #}
+							<a href="{{path('app_annonce_show', {'id':annonce.id})}}" class="btn btn-primary">Go somewhere</a>
+						</div>
+					</div>
 				</div>
+
+			{% endfor %}
+			{# display navigation #}
+			<div class="navigation">
+				{{ knp_pagination_render(annonces) }}
 			</div>
-		{% endfor %}
-		{# display navigation #}
-		<div class="navigation">
-			{{ knp_pagination_render(annonces) }}
 		</div>
+
 	</div>
+
 
 {% endblock %}

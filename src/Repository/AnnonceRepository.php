@@ -45,6 +45,20 @@ class AnnonceRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * @return Annonce[] Returns an array of Annonce objects
+     */
+    public function findCategoryForLink($value)
+    {
+        return $this->createQueryBuilder('a')
+            ->innerJoin('a.relation', 'c')
+            ->andWhere('c.category_name = :val')
+            ->setParameter('val', $value)
+            ->orderBy('a.annonce_date', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return Annonce[] Returns an array of Annonce objects
     //  */

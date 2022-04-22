@@ -59,6 +59,19 @@ class AnnonceRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    /**
+     * @return Annonce[] Returns an array of Annonce objects
+     */
+    public function findMyAnnonceForUser($value)
+    {
+        return $this->createQueryBuilder('a')
+            ->innerJoin('a.user', 'u')
+            ->andWhere('u.id = :val')
+            ->setParameter('val', $value)
+            ->orderBy('a.annonce_date', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
     // /**
     //  * @return Annonce[] Returns an array of Annonce objects
     //  */

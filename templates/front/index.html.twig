@@ -14,6 +14,7 @@
 				<div class="alert alert-success role=" alert"">
 					{{ flash }}</div>
 			{% endfor %}
+			<h1>{{TitlePage|default("Titre de test")}}</h1>
 			{% for annonce in annonces %}
 				<div class="col-4 col-md-4 ">
 					<div class="card ">

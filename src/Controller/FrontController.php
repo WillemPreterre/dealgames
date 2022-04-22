@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Entity\Category;
 use App\Repository\AnnonceRepository;
 use App\Repository\CategoryRepository;
@@ -31,6 +32,7 @@ class FrontController extends AbstractController
         return $this->render('front/index.html.twig', [
             'controller_name' => 'FrontController',
             'annonces' => $annonces,
+            'TitlePage' => 'Page d\'accueil',
         ]);
     }
 
@@ -38,7 +40,7 @@ class FrontController extends AbstractController
     /**
      * @Route("/category/{category_name}", name="app_category")
      */
-    public function category(Category $category, AnnonceRepository $annonceRepository, Request $request, PaginatorInterface $paginatorInterface, ?string $param): Response
+    public function category(Category $category, AnnonceRepository $annonceRepository, Request $request, PaginatorInterface $paginatorInterface): Response
 
 {
         $annonces = $paginatorInterface->paginate(
@@ -50,17 +52,29 @@ class FrontController extends AbstractController
 
         return $this->render('front/index.html.twig', [
             'annonces' => $annonces,
+            'TitlePage' => ucfirst($category->getCategoryName()),
+
         ]);
     }
 
 
     /**
-     * @Route("/myAnnonceLink", name="app_myannonce")
+     * @Route("/profile/myAnnonceLink", name="app_myannonce")
      */
-    public function myAnnonceLink()
-    {
-        return $this->render('myAnnonceLink.html.twig');
-    }
+    public function myAnnonce(AnnonceRepository $annonceRepository,PaginatorInterface $paginatorInterface, Request $request) {
+        $user = $this->getUser();
+        // $annonceRepository->findMyAnnonceForUser($user) ;
+
+        $annonces = $paginatorInterface->paginate(
+            $annonces = $annonceRepository->findMyAnnonceForUser($user) ,
+            $request->query->getInt('page', 1), /*page number*/
+            6 /*limit per page*/
+        );
+        return $this->render('front/index.html.twig', [
+            'annonces' => $annonces,
+            'TitlePage' => 'Page des annonces'
+        ]);
+     }
 
     /**
      * @Route("/myAccount", name="app_myaccount")
@@ -70,3 +84,4 @@ class FrontController extends AbstractController
         return $this->render('myAccount.html.twig');
     }
 }
+

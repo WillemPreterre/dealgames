@@ -60,6 +60,7 @@ class AnnonceController extends AbstractController
         ]);
     }
 
+
     /**
      * @Route("/{id}/edit", name="app_annonce_edit", methods={"GET", "POST"})
      */
@@ -85,7 +86,7 @@ class AnnonceController extends AbstractController
      */
     public function delete(Request $request, Annonce $annonce, AnnonceRepository $annonceRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$annonce->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $annonce->getId(), $request->request->get('_token'))) {
             $annonceRepository->remove($annonce);
         }
 

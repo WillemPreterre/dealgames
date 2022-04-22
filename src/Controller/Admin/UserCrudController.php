@@ -24,8 +24,8 @@ class UserCrudController extends AbstractCrudController
             TextField::new('prenom'),
             TextField::new('email'),
             TextField::new('password'),
-            // TextField::new('roles'),
-            IntegerField::new("isVerified"),
+            // IntegerField::new('roles'),
+            // IntegerField::new("isVerified"),
         ];
     }
 }

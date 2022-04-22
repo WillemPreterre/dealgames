@@ -11,7 +11,7 @@
 				<a class="nav-item nav-link text-primary" href="{{path('app_register')}}">Register</a>
 			{% else %}
 				<a class="nav-item nav-link text-primary" href="{{path('app_user_account', {'id': app.user.id})}}">Mon Compte</a>
-				<a class="nav-item nav-link text-secondary" href="{{path('app_user_account')}}">Mes annonces</a>
+				<a class="nav-item nav-link text-secondary" href="{{path('app_user_account', {'id': app.user.id})}}">Mes annonces</a>
 				<a class="nav-item nav-link text-primary" href="{{ path('app_annonce_new') }}">Nouvelle annonce</a>
 				<a class="nav-item nav-link text-secondary" href="{{path('app_logout')}}">Déconnexion</a>
 			{% endif %}

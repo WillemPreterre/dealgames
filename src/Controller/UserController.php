@@ -10,8 +10,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class UserController extends AbstractController
 {
     /**
-     * @Route("account", name="app_user_account", methods={"GET"})
+     * @Route("account/{id}", name="app_user_account", methods={"GET"})
      */
+    
     public function show(User $user)
     {
 
